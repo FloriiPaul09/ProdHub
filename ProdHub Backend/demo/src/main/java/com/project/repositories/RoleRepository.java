@@ -9,6 +9,6 @@ import com.project.enums.EUser;
 
 public interface RoleRepository extends JpaRepository<UserRole, Long>{
 
-	Optional<UserRole> findByUserRoleName(EUser userRoleName);
+	Optional<UserRole> findByRoleName(EUser roleName);
 	
 }

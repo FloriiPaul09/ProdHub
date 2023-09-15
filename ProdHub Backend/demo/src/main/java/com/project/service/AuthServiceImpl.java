@@ -69,7 +69,7 @@ public class AuthServiceImpl implements AuthService{
 	@Override
 	public RegisterRes register (RegisterReq registerReq) {
 		
-		if(userRepository.existsByUsename(registerReq.getUsername())) {
+		if(userRepository.existsByUsername(registerReq.getUsername())) {
 			throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username already exists");
 		}
 		
@@ -87,11 +87,11 @@ public class AuthServiceImpl implements AuthService{
 		
 		if(registerReq.getRoles() != null) {
 			registerReq.getRoles().forEach(role -> {
-				UserRole userRole = roleRepository.findByUserRoleName(getRole(role)).get();
+				UserRole userRole = roleRepository.findByRoleName(getRole(role)).get();
 				roles.add(userRole);
 			});
 		} else {
-			UserRole userRole = roleRepository.findByUserRoleName(EUser.USER_ROLE).get();
+			UserRole userRole = roleRepository.findByRoleName(EUser.USER_ROLE).get();
 			roles.add(userRole);
 		}
 		

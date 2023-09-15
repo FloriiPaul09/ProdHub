@@ -24,7 +24,7 @@ public class UserRole {
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	private EUser role;
+	private EUser roleName;
 
 	public Long getId() {
 		return id;
@@ -35,11 +35,11 @@ public class UserRole {
 	}
 
 	public EUser getRoleName() {
-		return role;
+		return roleName;
 	}
 
 	public void setRoleName(EUser role) {
-		this.role = role;
+		this.roleName = role;
 	}
 
 	

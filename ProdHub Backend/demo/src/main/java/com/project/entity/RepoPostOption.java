@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import com.project.enums.ERepository;
+import com.project.enums.EPostOptionRepository;
 
 @ToString
 @Setter
@@ -16,15 +16,15 @@ import com.project.enums.ERepository;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "option")
-public class RepoOption {
+@Table(name = "postoption")
+public class RepoPostOption {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	private ERepository option;
+	private EPostOptionRepository option;
 	
 
 }

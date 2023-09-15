@@ -35,7 +35,7 @@ public class UserService {
 	public User update(Long id, User user) {
 		if(!userRepo.existsById(id)|| user.getId() != id)
 			throw new EntityNotFoundException("Impossible to find the user");
-		if(userRepo.existsByEmailAndNotId(user.getEmail(), user.getId()))
+		if(userRepo.existsByEmailAndIdNot(user.getEmail(), user.getId()))
 			throw new EntityExistsException("User already existing with this email");
 		
 		return userRepo.save(user);

@@ -18,7 +18,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "user", 
+@Table(name = "username", 
 	uniqueConstraints = {
 		@UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email")

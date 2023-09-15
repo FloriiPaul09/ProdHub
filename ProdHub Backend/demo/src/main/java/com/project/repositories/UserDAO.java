@@ -9,7 +9,7 @@ public interface UserDAO extends CrudRepository<User, Long>{
 	public boolean existsByUsername(String username);
 	public boolean existsByEmail(String email);
 	
-	public boolean existsByUsernameAndNotId(String username, Long id);
-	public boolean existsByEmailAndNotId(String email, Long id);
+	public boolean existsByUsernameAndIdNot(String username, Long id);
+	public boolean existsByEmailAndIdNot(String email, Long id);
 	
 }

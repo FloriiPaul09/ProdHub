@@ -14,7 +14,7 @@ import { IRegisterData } from '../interfaces/iregister-data';
 export class AuthServiceService {
 
   jwtHelper : JwtHelperService = new JwtHelperService();
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUsers;
 
   private authSubject = new BehaviorSubject<null | IAccessData>(null);
 

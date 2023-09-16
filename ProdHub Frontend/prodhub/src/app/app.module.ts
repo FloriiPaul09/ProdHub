@@ -8,6 +8,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { UserpageComponent } from './pages/userpage/userpage.component';
 import { ILoginDataComponent } from './pages/interfaces/ilogin-data/ilogin-data.component';
+import { ReposComponent } from './pages/repos/repos.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ILoginDataComponent } from './pages/interfaces/ilogin-data/ilogin-data.
     SigninComponent,
     HomepageComponent,
     UserpageComponent,
-    ILoginDataComponent
+    ILoginDataComponent,
+    ReposComponent
   ],
   imports: [
     BrowserModule,

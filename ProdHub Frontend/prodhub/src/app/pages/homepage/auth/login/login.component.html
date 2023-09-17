@@ -1,0 +1,21 @@
+<div>
+  <h2>Sign in</h2>
+
+  <form [formGroup]="f" (ngSubmit)="submit()">
+    <div>
+      <div>
+        <span>
+          <input pInputText id="email" formControlName="email">
+          <label htmlFor="email">Email</label>
+        </span>
+      </div>
+      <div>
+        <p-password formControlName="password" [toggleMask]="true"></p-password>
+      </div>
+    </div>
+    <div>
+      <p-button type="submit" [disabled]="!f.valid" label="Log in!"></p-button>
+    </div>
+  </form>
+
+</div>

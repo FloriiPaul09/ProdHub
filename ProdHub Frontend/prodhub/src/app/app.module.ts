@@ -3,26 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SigninComponent } from './pages/signin/signin.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
-import { UserpageComponent } from './pages/userpage/userpage.component';
-import { ILoginDataComponent } from './pages/interfaces/ilogin-data/ilogin-data.component';
-import { ReposComponent } from './pages/repos/repos.component';
+import { RegisterComponent } from './pages/homepage/auth/register/register.component';
+import { LoginComponent } from './pages/homepage/auth/login/login.component';
+
+import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SigninComponent,
     HomepageComponent,
-    UserpageComponent,
-    ILoginDataComponent,
-    ReposComponent
+    RegisterComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PasswordModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

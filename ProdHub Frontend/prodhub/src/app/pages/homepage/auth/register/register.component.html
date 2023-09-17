@@ -1,0 +1,42 @@
+<div>
+
+  <h3>Sign up</h3>
+
+  <form [formGroup]="f" (ngSubmit)="register()">
+    <div>
+      <div>
+        <span>
+          <input pInputText id="username" formControlName="username">
+          <label htmlFor="username">Add an username</label>
+        </span>
+      </div>
+      <div>
+        <span>
+          <input pInputText id="name" formControlName="name">
+          <label htmlFor="name">Add a name</label>
+        </span>
+      </div>
+      <div>
+        <span>
+          <input pInputText id="surname" formControlName="surname">
+          <label htmlFor="surname">Add a surname</label>
+        </span>
+      </div>
+      <div>
+        <span>
+          <input pInputText id="email" formControlName="email">
+          <label htmlFor="email">Add an email</label>
+        </span>
+      </div>
+      <div>
+        <span>
+          <p-password formControlName="password" [toggleMask]="true"></p-password>
+        </span>
+      </div>
+    </div>
+    <div>
+      <p-button type="submit" [disabled]="!f.valid" label="Signin!"></p-button>
+    </div>
+  </form>
+  <p>Already have an account? <a [routerLink]="['/login']">Log in!</a></p>
+</div>

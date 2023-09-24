@@ -1,42 +1,36 @@
-<div>
+<p-card class="pt-6 flex align-items-center justify-content-center flex-wrap" [style]="{width : '25%'}">
 
-  <h3>Sign up</h3>
 
-  <form [formGroup]="f" (ngSubmit)="register()">
+  <form class="flex align-items-center flex-column" [formGroup]="f" (ngSubmit)="register()">
     <div>
-      <div>
+
+      <h1 class="mt-0 mb-4 text-6xl customfont">Registration</h1>
+
+      <div class="mb-2">
         <span>
-          <input pInputText id="username" formControlName="username">
-          <label htmlFor="username">Add an username</label>
+          <input class="outline-none text-xl px-1 py-2" pInputText id="name" formControlName="name" placeholder="Name">
         </span>
       </div>
-      <div>
+      <div class="mb-2">
         <span>
-          <input pInputText id="name" formControlName="name">
-          <label htmlFor="name">Add a name</label>
+          <input class="outline-none text-xl px-1 py-2" pInputText id="username" formControlName="username" placeholder="Username">
         </span>
       </div>
-      <div>
+      <div class="mb-2">
         <span>
-          <input pInputText id="surname" formControlName="surname">
-          <label htmlFor="surname">Add a surname</label>
+          <input class="outline-none text-xl px-1 py-2" pInputText id="email" formControlName="email" placeholder="Email">
         </span>
       </div>
-      <div>
-        <span>
-          <input pInputText id="email" formControlName="email">
-          <label htmlFor="email">Add an email</label>
-        </span>
-      </div>
-      <div>
+      <div class="mb-2">
         <span>
           <p-password formControlName="password" [toggleMask]="true"></p-password>
         </span>
       </div>
     </div>
     <div>
-      <p-button type="submit" [disabled]="!f.valid" label="Signin!"></p-button>
+      <p-button type="submit" [disabled]="!f.valid" label="Register!"></p-button>
     </div>
+    <p>Already have an account? <a [routerLink]="['/login']">Log in!</a></p>
   </form>
-  <p>Already have an account? <a [routerLink]="['/login']">Log in!</a></p>
-</div>
+
+</p-card>

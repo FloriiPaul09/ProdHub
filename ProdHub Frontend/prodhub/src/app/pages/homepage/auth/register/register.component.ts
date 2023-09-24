@@ -19,9 +19,8 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit(): void {
       this.f = new FormGroup({
-        username : new FormControl("", Validators.required),
         name : new FormControl("", Validators.required),
-        surname : new FormControl("", Validators.required),
+        username : new FormControl("", Validators.required),
         email : new FormControl("", Validators.required),
         password : new FormControl("", Validators.required)
       });
@@ -30,7 +29,7 @@ export class RegisterComponent implements OnInit {
   register(){
     this.userSrvc.signUp(this.f.value)
     .subscribe(accessData => {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/userpage'])
     })
   }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,13 +11,16 @@ import { LoginComponent } from './pages/homepage/auth/login/login.component';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserpageComponent } from './pages/userpage/userpage.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UserpageComponent
 
   ],
   imports: [
@@ -25,7 +29,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PasswordModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonModule
+    ButtonModule,
+    HttpClientModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

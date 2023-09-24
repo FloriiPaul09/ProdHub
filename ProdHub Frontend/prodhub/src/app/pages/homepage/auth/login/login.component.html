@@ -1,21 +1,23 @@
-<div>
-  <h2>Sign in</h2>
+<p-card class="pt-6 flex align-items-center justify-content-center flex-wrap" [style]="{width : '25%'}">
 
-  <form [formGroup]="f" (ngSubmit)="submit()">
+  <form class="flex align-items-center flex-column" [formGroup]="f" (ngSubmit)="submit()">
     <div>
-      <div>
+
+      <h2 class="mt-0 mb-4 text-6xl customfont">Log in!</h2>
+
+      <div class="mb-2">
         <span>
-          <input pInputText id="email" formControlName="email">
-          <label htmlFor="email">Email</label>
+          <input class="outline-none text-xl px-1 py-2" pInputText id="email" formControlName="email" placeholder="Email">
         </span>
       </div>
-      <div>
+      <div class="mb-2">
         <p-password formControlName="password" [toggleMask]="true"></p-password>
       </div>
     </div>
     <div>
       <p-button type="submit" [disabled]="!f.valid" label="Log in!"></p-button>
     </div>
+    <p>Don't have an account yet? <a [routerLink]="['/register']">Register!</a></p>
   </form>
+</p-card>
 
-</div>

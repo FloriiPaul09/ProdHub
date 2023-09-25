@@ -33,7 +33,13 @@ export class UserService {
     login(data : ILoginData){
       this.http.post<IAccessData>(environment.apiLogin, data)
       .subscribe(data => {
-        this.logUser.next(data);
+
+        const updatedData: IAccessData ={
+          ...data,
+          username: data.username,
+        };
+
+        this.logUser.next(updatedData);
         localStorage.setItem("user", JSON.stringify(data));
         this.router.navigate(["/userpage"]);
       })
@@ -44,5 +50,6 @@ export class UserService {
       localStorage.removeItem("user");
       this.router.navigate(["/homepage"])
     }
+
 
 }

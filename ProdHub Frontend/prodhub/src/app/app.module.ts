@@ -13,6 +13,7 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserpageComponent } from './pages/userpage/userpage.component';
 import { CardModule } from 'primeng/card';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     ButtonModule,
     HttpClientModule,
-    CardModule
+    CardModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

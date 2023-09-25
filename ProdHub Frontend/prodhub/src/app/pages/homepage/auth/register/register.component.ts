@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   register(){
     this.userSrvc.signUp(this.f.value)
     .subscribe(accessData => {
-      this.router.navigate(['/userpage'])
+      this.router.navigate(['/login'])
     })
   }
 

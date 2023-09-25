@@ -1,23 +1,58 @@
-<p-card class="pt-6 flex align-items-center justify-content-center flex-wrap" [style]="{width : '25%'}">
-
-  <form class="flex align-items-center flex-column" [formGroup]="f" (ngSubmit)="submit()">
-    <div>
-
-      <h2 class="mt-0 mb-4 text-6xl customfont">Log in!</h2>
-
-      <div class="mb-2">
-        <span>
-          <input class="outline-none text-xl px-1 py-2" pInputText id="email" formControlName="email" placeholder="Email">
-        </span>
+<div class="text-white">
+  <div class="bg-bluegray-800 shadow-5 grid flex-initial flex align-items-center">
+    <nav class="">
+      <div class="col-12">
+        <p class="text-6xl customfont ml-2 mt-2 mb-2">ProdHub</p>
       </div>
-      <div class="mb-2">
-        <p-password formControlName="password" [toggleMask]="true"></p-password>
-      </div>
-    </div>
-    <div>
-      <p-button type="submit" [disabled]="!f.valid" label="Log in!"></p-button>
-    </div>
-    <p>Don't have an account yet? <a [routerLink]="['/register']">Register!</a></p>
-  </form>
-</p-card>
+    </nav>
+  </div>
 
+  <div class="mt-1 grid flex align-items-center">
+    <div class="col-2"></div>
+
+
+    <div class="col-8 flex justify-content-center">
+
+      <p-card  [style]="{width : '100%'}">
+
+        <form class="flex align-items-center flex-column" [formGroup]="f" (ngSubmit)="submit()">
+          <div>
+
+            <h2 class="mt-0 mb-4 text-6xl customfont">Log in!</h2>
+
+            <div class="mb-2">
+              <span>
+                <input class="outline-none text-xl px-1 py-2" pInputText id="username" formControlName="username" placeholder="Username">
+              </span>
+            </div>
+            <div class="mb-2">
+              <p-password formControlName="password" [toggleMask]="true"></p-password>
+            </div>
+          </div>
+          <div>
+            <p-button styleClass="p-button-help" type="submit" [disabled]="!f.valid" label="Log in!"></p-button>
+          </div>
+          <p>Don't have an account yet? <a [routerLink]="['/register']">Register!</a></p>
+        </form>
+      </p-card>
+
+    </div>
+
+
+    <div class="col-1"></div>
+  </div>
+
+  <footer class="mt-5 bg-bluegray-800 shadow-5">
+    <div class="col-2"></div>
+
+
+    <div class="col-8">
+
+
+
+    </div>
+
+
+    <div class="col-2"></div>
+  </footer>
+  </div>

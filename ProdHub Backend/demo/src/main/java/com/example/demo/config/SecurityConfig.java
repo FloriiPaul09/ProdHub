@@ -52,20 +52,26 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-    	http.cors().and().csrf().disable()
+        http.cors(cors -> cors.configurationSource(request ->{
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            return config;
+        }))
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests((authorize) -> authorize
-        		.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated())
-        .exceptionHandling( exception -> exception
+        .exceptionHandling(exception -> exception
                 .authenticationEntryPoint(authenticationEntryPoint)
-        ).sessionManagement( session -> session
+        ).sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 
-    	http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    	return http.build();
+        return http.build();
     }
 }

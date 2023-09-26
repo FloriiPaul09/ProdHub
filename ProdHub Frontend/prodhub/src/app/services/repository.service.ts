@@ -8,26 +8,25 @@ import { environment } from 'src/environments/environment.development';
 })
 export class RepositoryService {
 
-  private apiRepoUpload =  environment.apiRepos;
+  private apiRepo =  environment.apiReposPrivate;
+
 
   constructor(private http: HttpClient) { }
 
-  upload(file: File): Observable<HttpEvent<any>>{
-    const formData : FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest('POST', `${this.apiRepoUpload}`, formData, {
+  upload(formData: FormData): Observable<HttpEvent<string[]>>{
+    return this.http.post<string[]>(`${this.apiRepo}/upload `, formData, {
       reportProgress: true,
-      responseType: 'json'
+      observe: 'events',
     });
-
-    return this.http.request(req);
-
   }
 
-  getFiles(): Observable<any>{
-    return this.http.get(`${this.apiRepoUpload}`);
+
+  download(fileId: String): Observable<HttpEvent<Blob>>{
+    return this.http.get(`${this.apiRepo}/download/${fileId}`,{
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
   }
 
 

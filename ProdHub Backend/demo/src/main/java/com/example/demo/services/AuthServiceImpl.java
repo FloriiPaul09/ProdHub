@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.example.demo.entities.User;
-import com.example.demo.entities.UserRole;
-import com.example.demo.enums.EUserRole;
+import com.example.demo.entities.Role;
+import com.example.demo.entities.ERole;
 import com.example.demo.exception.MyAPIException;
 import com.example.demo.payload.LoginDto;
 import com.example.demo.payload.RegisterDto;
@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
 
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
@@ -62,12 +63,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDto registerDto) {
 
-        // add check for username exists in database
+
         if(userRepository.existsByUsername(registerDto.getUsername())){
             throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username is already exists!.");
         }
 
-        // add check for email exists in database
         if(userRepository.existsByEmail(registerDto.getEmail())){
             throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
         }
@@ -78,15 +78,15 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
-        Set<UserRole> roles = new HashSet<>();
+        Set<Role> roles = new HashSet<>();
         
         if(registerDto.getRoles() != null) {
 	        registerDto.getRoles().forEach(role -> {
-	        	UserRole userRole = roleRepository.findByRoleName(getRole(role)).get();
+	        	Role userRole = roleRepository.findByRoleName(getRole(role)).get();
 	        	roles.add(userRole);
 	        });
         } else {
-        	UserRole userRole = roleRepository.findByRoleName(EUserRole.USER).get();
+        	Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER).get();
         	roles.add(userRole);
         }
         
@@ -97,9 +97,10 @@ public class AuthServiceImpl implements AuthService {
         return "User registered successfully!.";
     }
     
-    public EUserRole getRole(String role) {
-    	if(role.equals("ADMIN")) return EUserRole.ADMIN;
-    	else return EUserRole.USER;
+    public ERole getRole(String role) {
+    	if(role.equals("ROLE_ADMIN")) return ERole.ROLE_ADMIN;
+    	else if(role.equals("ROLE_MODERATOR")) return ERole.ROLE_MODERATOR;
+    	else return ERole.ROLE_USER;
     }
     
 }

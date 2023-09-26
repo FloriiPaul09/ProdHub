@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.payload.JwtAuthResponse;
+import com.example.demo.payload.JWTAuthResponse;
 import com.example.demo.payload.LoginDto;
 import com.example.demo.payload.RegisterDto;
 import com.example.demo.services.AuthService;
 
 @RestController
-@RequestMapping("/prodhub/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	
     private AuthService authService;
@@ -24,11 +24,11 @@ public class AuthController {
 
     // Build Login REST API
     @PostMapping(value = {"/login", "/signin"})
-    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
            	
     	String token = authService.login(loginDto);
 
-        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
         jwtAuthResponse.setUsername(loginDto.getUsername());
         jwtAuthResponse.setAccessToken(token);
 
@@ -41,6 +41,5 @@ public class AuthController {
         String response = authService.register(registerDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-	
 }
 

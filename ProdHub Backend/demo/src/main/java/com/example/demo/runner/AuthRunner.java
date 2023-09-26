@@ -12,8 +12,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.entities.UserRole;
-import com.example.demo.enums.EUserRole;
+import com.example.demo.entities.Role;
+import com.example.demo.entities.ERole;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.AuthService;
@@ -21,38 +21,48 @@ import com.example.demo.services.AuthService;
 @Component
 public class AuthRunner implements CommandLineRunner{
 
+	
 	@Autowired RoleRepository roleRepository;
 	@Autowired UserRepository userRepository;
 	@Autowired PasswordEncoder passwordEncoder;
 	@Autowired AuthService authService;
 	
-	private Set<UserRole> adminRole;
-	private Set<UserRole> moderatorRole;
-	private Set<UserRole> userRole;
+	private Set<Role> adminRole;
+	private Set<Role> moderatorRole;
+	private Set<Role> userRole;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
 		System.out.println("Run...");
 		setRoleDefault();
 		
 	}
 	
 	private void setRoleDefault() {
-		UserRole admin = new UserRole();
-		admin.setRoleName(EUserRole.ADMIN);
+		Role admin = new Role();
+		admin.setRoleName(ERole.ROLE_ADMIN);
 		roleRepository.save(admin);
 		
-		UserRole user = new UserRole();
-		user.setRoleName(EUserRole.USER);
+		Role user = new Role();
+		user.setRoleName(ERole.ROLE_USER);
 		roleRepository.save(user);
 		
-		adminRole = new HashSet<UserRole>();
+		Role moderator = new Role();
+		moderator.setRoleName(ERole.ROLE_MODERATOR);
+		roleRepository.save(moderator);
+		
+		adminRole = new HashSet<Role>();
 		adminRole.add(admin);
+		adminRole.add(moderator);
 		adminRole.add(user);
 		
-		userRole = new HashSet<UserRole>();
+		moderatorRole = new HashSet<Role>();
+		moderatorRole.add(moderator);
+		moderatorRole.add(user);
+		
+		userRole = new HashSet<Role>();
 		userRole.add(user);
 	}
 
+	
 }

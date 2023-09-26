@@ -26,54 +26,46 @@ import com.example.demo.security.JwtAuthenticationEntryPoint;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	private UserDetailsService userService;
-	private JwtAuthenticationFilter authFilter;
-	private JwtAuthenticationEntryPoint jwtEntry;
-	
-	
-	public SecurityConfig(UserDetailsService userService,
-			JwtAuthenticationFilter authFilter,
-					JwtAuthenticationEntryPoint jwtEntry) {
-		
-		this.userService = userService;
-		this.authFilter = authFilter;
-		this.jwtEntry = jwtEntry;
-		
-	}
-	
-	@Bean
-	public static PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
-		return config.getAuthenticationManager();
-	}
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		http.cors(cors -> cors.configurationSource(request -> {
-			CorsConfiguration config = new CorsConfiguration();
-			config.setAllowedOrigins(Collections.singletonList("http://localhost4200"));
-			config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-			config.setAllowedHeaders(Collections.singletonList("*"));
-			return config;
-		}))
-		.csrf(csrf -> csrf.disable())
-		.authorizeHttpRequests((authorize) -> authorize
-			.requestMatchers(HttpMethod.GET, "/**").permitAll()
-			.requestMatchers("prodhub/auth").permitAll()
-			.anyRequest().authenticated())
-		.exceptionHandling(ex -> ex
-			.authenticationEntryPoint(jwtEntry)
-		).sessionManagement(session -> session
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		);
-		
-		http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
-		
-		return http.build();
-	}
-	
+    private UserDetailsService userDetailsService;
+
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+    private JwtAuthenticationFilter authenticationFilter;
+
+    public SecurityConfig(UserDetailsService userDetailsService,
+                          JwtAuthenticationEntryPoint authenticationEntryPoint,
+                          JwtAuthenticationFilter authenticationFilter){
+        this.userDetailsService = userDetailsService;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.authenticationFilter = authenticationFilter;
+    }
+
+    @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    	http.cors().and().csrf().disable()
+        .authorizeHttpRequests((authorize) -> authorize
+        		.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated())
+        .exceptionHandling( exception -> exception
+                .authenticationEntryPoint(authenticationEntryPoint)
+        ).sessionManagement( session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+    	http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+    	return http.build();
+    }
 }

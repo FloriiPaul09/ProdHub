@@ -12,14 +12,14 @@
 
     <p-button class="" label="Add" (onClick)="button = !button"></p-button>
 
-    <div *ngIf="button" class="grid flex flex-wrap align-items-center justify-content-center gap-3">
+    <div *ngIf="button" class="grid flex flex-wrap align-items-center justify-content-center">
 
-      <div class="col-5 flex align-items-center justify-content-center">
+      <div class="col-6 flex align-items-center justify-content-center">
           <p-radioButton name="repository" value="Public" (onClick)="public = public" [(ngModel)]="public" inputId="public"></p-radioButton>
           <label for="public" class="ml-2">Public</label>
       </div>
 
-      <div class="col-5 flex align-items-center justify-content-center">
+      <div class="col-6 flex align-items-center justify-content-center">
           <p-radioButton name="repository" value="Private" (onClick)="public = !public" [(ngModel)]="!public" inputId="private"></p-radioButton>
           <label for="private" class="ml-2">Private</label>
       </div>

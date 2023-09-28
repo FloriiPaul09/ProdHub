@@ -19,14 +19,20 @@
 
   </nav>
 
-  <div class="grid text-white bg-bluegray-300 h-screen w-screen">
+  <div class="mt-6 grid text-white bg-bluegray-300 h-screen w-screen">
 
     <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-8 mt-6">
 
 
-      <div *ngFor="let file of files">
-        <a [href]="file.downloadURL">{{ file.fileName }}</a>
+      <div class="mt-6" *ngIf="data">
+        <p>Hello</p>
+        <ul>
+          <li *ngFor="let file of data.content">
+            <p>Name: {{file.fileName}}</p>
+            <p>Type: {{file.fileType}}</p>
+          </li>
+        </ul>
       </div>
 
 

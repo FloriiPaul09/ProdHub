@@ -16,15 +16,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.entities.FileData;
 import com.example.demo.payload.FileDataResponse;
-import com.example.demo.services.FileDataService;
+import com.example.demo.services.FileDataServiceImpl;
 
 @RestController
 @RequestMapping("/api/auth/files")
-public class FileDataController {
+public class PrivateFileDataController {
 	
-    private FileDataService fileDataService;
+    private FileDataServiceImpl fileDataService;
 
-    public FileDataController(FileDataService fileDataService) {
+    public PrivateFileDataController(FileDataServiceImpl fileDataService) {
         this.fileDataService = fileDataService;
     }
 
@@ -48,6 +48,7 @@ public class FileDataController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
         FileData fileData = null;
         fileData = fileDataService.getAttachment(fileId);
+        
         return  ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileData.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,

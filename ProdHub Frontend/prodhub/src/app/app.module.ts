@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserpageComponent } from './pages/userpage/userpage.component';
 import { CardModule } from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     ButtonModule,
     HttpClientModule,
     CardModule,
-    FileUploadModule
+    FileUploadModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

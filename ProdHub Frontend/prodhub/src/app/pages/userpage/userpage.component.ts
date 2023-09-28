@@ -10,6 +10,9 @@ import { saveAs } from 'file-saver';
 })
 export class UserpageComponent implements OnInit{
 
+  public: boolean = true;
+  button: boolean = false;
+
   username : string = '';
   filenames: string[] = [];
   fileStatus = {status: '', requestType:'', percent: 0};
@@ -26,25 +29,36 @@ export class UserpageComponent implements OnInit{
     });
   }
 
-  onUploadFiles(files: File[]): void {
-    const formData = new FormData();
-    for (const file of files) { formData.append('files', file, file.name); }
-    this.repositorySrvc.upload(formData).subscribe(
-      event => {
-        console.log(event);
-        this.reportProgress(event);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
+  onUploadFiles(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const files = inputElement.files;
+
+    if (files) {
+      const fileList: File[] = Array.from(files);
+
+      if (fileList.length > 0) {
+        const formData = new FormData();
+        for (const file of fileList) {
+          formData.append('files', file, file.name);
+        }
+        this.repositorySrvc.upload(formData).subscribe(
+          (httpEvent: HttpEvent<any>) => {
+            console.log(httpEvent);
+            this.reportProgress(httpEvent);
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        );
       }
-    );
+    }
   }
 
   onDownloadFile(filename: string): void {
     this.repositorySrvc.download(filename).subscribe(
-      event => {
-        console.log(event);
-        this.reportProgress(event);
+      (httpEvent: HttpEvent<any>) => {
+        console.log(httpEvent);
+        this.reportProgress(httpEvent);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

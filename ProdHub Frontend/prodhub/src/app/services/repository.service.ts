@@ -8,13 +8,13 @@ import { environment } from 'src/environments/environment.development';
 })
 export class RepositoryService {
 
-  private apiRepo =  environment.apiReposPrivate;
-
+  private apiRepoPrivate =  environment.apiReposPrivate;
+  private apiRepoPublic = environment.apiReposPublic;
 
   constructor(private http: HttpClient) { }
 
   upload(formData: FormData): Observable<HttpEvent<string[]>>{
-    return this.http.post<string[]>(`${this.apiRepo}/upload `, formData, {
+    return this.http.post<string[]>(`${this.apiRepoPrivate}/upload `, formData, {
       reportProgress: true,
       observe: 'events',
     });
@@ -22,12 +22,16 @@ export class RepositoryService {
 
 
   download(fileId: String): Observable<HttpEvent<Blob>>{
-    return this.http.get(`${this.apiRepo}/download/${fileId}`,{
+    return this.http.get(`${this.apiRepoPrivate}/download/${fileId}`,{
       reportProgress: true,
       observe: 'events',
       responseType: 'blob'
     });
   }
 
+
+  getPublicRepo(): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiRepoPublic}/upload`);
+  }
 
 }

@@ -7,8 +7,38 @@
 <div class="mt-6 grid text-white bg-bluegray-300 h-screen w-screen">
 
   <div class="col-2"></div>
-  <div class="col-8 mt-4">
+  <div class="col-8 mt-4 flex flex-column ">
     <h2>Welcome {{username}}</h2>
+
+    <p-button class="" label="Add" (onClick)="button = !button"></p-button>
+
+    <div *ngIf="button" class="grid flex flex-wrap align-items-center justify-content-center gap-3">
+
+      <div class="col-5 flex align-items-center justify-content-center">
+          <p-radioButton name="repository" value="Public" (onClick)="public = public" [(ngModel)]="public" inputId="public"></p-radioButton>
+          <label for="public" class="ml-2">Public</label>
+      </div>
+
+      <div class="col-5 flex align-items-center justify-content-center">
+          <p-radioButton name="repository" value="Private" (onClick)="public = !public" [(ngModel)]="!public" inputId="private"></p-radioButton>
+          <label for="private" class="ml-2">Private</label>
+      </div>
+
+      <div class="flex flex-column grid ">
+        <div class="col-12 flex flex-column align-items-center justify-content-center" *ngIf="public">
+          <input type="file">
+          <span>Every one will see a public post</span>
+        </div>
+
+        <div class="col-12 flex flex-column align-items-center justify-content-center" *ngIf="!public">
+          <input type="file">
+          <span>Only the users will see a private post</span>
+        </div>
+      </div>
+
+
+    </div>
+
   </div>
   <div class="col-2"></div>
 </div>

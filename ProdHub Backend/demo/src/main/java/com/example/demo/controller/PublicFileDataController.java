@@ -19,31 +19,31 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.entities.FileData;
+import com.example.demo.entities.FileDataPublic;
 import com.example.demo.payload.FileDataResponse;
-import com.example.demo.services.FileDataServiceImpl;
+import com.example.demo.services.FileDataPublicSeviceImpl;
 
 @RestController
 @RequestMapping("/public")
 public class PublicFileDataController {
 
-	private FileDataServiceImpl fileDataService;
+	private FileDataPublicSeviceImpl fileDataPublicService;
 	
-	public PublicFileDataController(FileDataServiceImpl fileDataService) {
-		this.fileDataService = fileDataService;
+	public PublicFileDataController(FileDataPublicSeviceImpl fileDataPublicService) {
+		this.fileDataPublicService = fileDataPublicService;
 	}
 	
 	@PostMapping("/upload")
 	public FileDataResponse uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
-		FileData fileData = null;
+		FileDataPublic fileDataPublic = null;
 		String downloadUrl = "";
-		fileData = fileDataService.saveAttachment(file);
+		fileDataPublic = fileDataPublicService.saveAttachment(file);
 		downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
 				.path("/download")
-				.path(fileData.getId())
+				.path(fileDataPublic.getId())
 				.toUriString();
 		
-		return new FileDataResponse(fileData.getFileName(),
+		return new FileDataResponse(fileDataPublic.getFileName(),
 				downloadUrl,
 				file.getContentType(),
 				file.getSize());	
@@ -51,21 +51,21 @@ public class PublicFileDataController {
 	
 	@GetMapping("/download/{fileId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
-		FileData fileData = null;
-		fileData = fileDataService.getAttachment(fileId);
+		FileDataPublic fileDataPublic = null;
+		fileDataPublic = fileDataPublicService.getAttachment(fileId);
 		
 		return ResponseEntity.ok()
-				.contentType(MediaType.parseMediaType(fileData.getFileType()))
+				.contentType(MediaType.parseMediaType(fileDataPublic.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION,
-						"attachment; filename=\"" + fileData.getFileName()
+						"attachment; filename=\"" + fileDataPublic.getFileName()
 						+ "\"")
-				.body(new ByteArrayResource(fileData.getData()));
+				.body(new ByteArrayResource(fileDataPublic.getData()));
 	}
 
 	
 	@GetMapping("/upload")
-	public ResponseEntity<Page<FileData>> getAll(Pageable pageable){
-		return new ResponseEntity<Page<FileData>>(fileDataService.getAll(pageable), HttpStatus.OK);
+	public ResponseEntity<Page<FileDataPublic>> getAll(Pageable pageable){
+		return new ResponseEntity<Page<FileDataPublic>>(fileDataPublicService.getAll(pageable), HttpStatus.OK);
 	}
 	
 }

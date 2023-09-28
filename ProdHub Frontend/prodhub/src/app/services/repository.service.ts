@@ -13,15 +13,25 @@ export class RepositoryService {
 
   constructor(private http: HttpClient) { }
 
-  upload(formData: FormData): Observable<HttpEvent<string[]>>{
+  //upload methods
+
+  uploadPrivate(formData: FormData): Observable<HttpEvent<string[]>>{
     return this.http.post<string[]>(`${this.apiRepoPrivate}/upload `, formData, {
       reportProgress: true,
       observe: 'events',
     });
   }
 
+  uploadPublic(formData: FormData): Observable<HttpEvent<string[]>>{
+    return this.http.post<string[]>(`${this.apiRepoPublic}/upload `, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
 
-  download(fileId: String): Observable<HttpEvent<Blob>>{
+  //download methods
+
+  downloadPrivate(fileId: String): Observable<HttpEvent<Blob>>{
     return this.http.get(`${this.apiRepoPrivate}/download/${fileId}`,{
       reportProgress: true,
       observe: 'events',
@@ -29,9 +39,23 @@ export class RepositoryService {
     });
   }
 
+  downloadPublic(fileId: String): Observable<HttpEvent<Blob>>{
+    return this.http.get(`${this.apiRepoPublic}/download/${fileId}`,{
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
+
+
+  //All post methods
 
   getPublicRepo(): Observable<any[]>{
     return this.http.get<any[]>(`${this.apiRepoPublic}/upload`);
+  }
+
+  getPrivateRepo(): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiRepoPrivate}/upload`);
   }
 
 }

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/htt
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UserService } from 'src/app/services/user.service';
-import { saveAs } from 'file-saver';
+import { IPage } from 'src/app/interfaces/ipage';
 @Component({
   selector: 'app-userpage',
   templateUrl: './userpage.component.html',
@@ -10,98 +10,132 @@ import { saveAs } from 'file-saver';
 })
 export class UserpageComponent implements OnInit{
 
+  prData: IPage = {
+    content: [],
+    empty: false,
+    first: false,
+    last: false,
+    number: 0,
+    numberOfElements: 0,
+    pageable: [],
+    size: 0,
+    sort: [],
+    totalElements: 0,
+    totalPages: 0
+  };
+
+  pubData: IPage = {
+    content: [],
+    empty: false,
+    first: false,
+    last: false,
+    number: 0,
+    numberOfElements: 0,
+    pageable: [],
+    size: 0,
+    sort: [],
+    totalElements: 0,
+    totalPages: 0
+  };
+
+
+  publicOrPrivate: boolean = true;
   public: boolean = true;
   button: boolean = false;
 
   username : string = '';
-  filenames: string[] = [];
-  fileStatus = {status: '', requestType:'', percent: 0};
+
+  fileId: string = '';
+  selectedFile : File | null = null;
 
   constructor(private userSrvc : UserService,
               private repositorySrvc : RepositoryService
               ){}
 
   ngOnInit(){
+    //get all public and private posts
+    this.repositorySrvc.getPublicRepo().subscribe((pubData: any) =>{
+      if(Array.isArray(pubData.content)){
+      this.pubData.content = pubData.content;
+      console.log(pubData);
+    }
+    },
+    (error) => {
+      console.error("Errore durante l'operazione di recupero", error);
+    });
+
+    this.repositorySrvc.getPrivateRepo().subscribe((prData: any) =>{
+      if(Array.isArray(prData.content)){
+      this.prData.content = prData.content;
+      console.log(prData);
+    }
+    },
+    (error) => {
+      console.error("Errore durante l'operazione di recupero", error);
+    });
+
+    //user name display
     this.userSrvc.isUserLogged.subscribe((user) =>{
       if(user) {
         this.username = user.username;
       }
     });
+
   }
 
-  onUploadFiles(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const files = inputElement.files;
 
-    if (files) {
-      const fileList: File[] = Array.from(files);
 
-      if (fileList.length > 0) {
-        const formData = new FormData();
-        for (const file of fileList) {
-          formData.append('files', file, file.name);
-        }
-        this.repositorySrvc.upload(formData).subscribe(
-          (httpEvent: HttpEvent<any>) => {
-            console.log(httpEvent);
-            this.reportProgress(httpEvent);
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error);
-          }
-        );
-      }
+
+  onSelectFile(event : any){
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadPrivate(){
+
+    if(!this.selectedFile){
+      console.log('There is no file selected...');
+      return;
     }
-  }
 
-  onDownloadFile(filename: string): void {
-    this.repositorySrvc.download(filename).subscribe(
-      (httpEvent: HttpEvent<any>) => {
-        console.log(httpEvent);
-        this.reportProgress(httpEvent);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.repositorySrvc.uploadPrivate(formData).subscribe((event:HttpEvent<string[]>) => {
+      if(event.type === HttpEventType.Response){
+        console.log('File uploaded on private database successfully', event.body);
       }
-    );
-  }
-
-
-
-  private reportProgress(httpEvent: HttpEvent<string[]|Blob>): void {
-    switch(httpEvent.type) {
-      case HttpEventType.UploadProgress:
-        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
-        break;
-      case HttpEventType.DownloadProgress:
-        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Downloading... ');
-        break;
-      case HttpEventType.ResponseHeader:
-        console.log('Header returned', httpEvent);
-        break;
-      case HttpEventType.Response:
-        if (httpEvent.body instanceof Array) {
-          this.fileStatus.status = 'done';
-          for (const filename of httpEvent.body) {
-            this.filenames.unshift(filename);
-          }
-        } else {
-          saveAs(new File([httpEvent.body!], httpEvent.headers.get('fileId')!,
-                  {type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}));
-
-        }
-        this.fileStatus.status = 'done';
-        break;
-        default:
-          console.log(httpEvent);
-          break;
-
+    },
+    (error) => {
+      console.log('Error in the upload....', error);
     }
+    )
+
   }
-  updateStatus(loaded: number, total: number, requestType: string) {
-    this.fileStatus.status = 'progress';
-    this.fileStatus.requestType = requestType;
-    this.fileStatus.percent = Math.round(100 * loaded / total);
+
+  uploadPublic(){
+
+    if(!this.selectedFile){
+      console.log('There is no file selected...');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.repositorySrvc.uploadPublic(formData).subscribe((event:HttpEvent<string[]>) => {
+      if(event.type === HttpEventType.Response){
+        console.log('File uploaded on public database successfully', event.body);
+      }
+    },
+    (error) => {
+      console.log('Error in the upload....', error);
+    }
+    )
+
   }
+
+  downloadPublic(fileId : string){}
+
+  downloadPrivate(fileId : string){}
 
 }

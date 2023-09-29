@@ -15,6 +15,7 @@ import { UserpageComponent } from './pages/userpage/userpage.component';
 import { CardModule } from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     HttpClientModule,
     CardModule,
     FileUploadModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

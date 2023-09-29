@@ -4,77 +4,89 @@
   </div>
 </nav>
 
-<div class="mt-6 grid text-white bg-bluegray-300 h-screen w-screen">
+<div class="mt-6 grid text-white bg-bluegray-600 h-screen w-screen">
 
   <div class="col-2"></div>
-  <div class="col-8 mt-4 flex flex-column ">
-    <h2>Welcome {{username}}</h2>
+  <div class="col-8 mt-4 flex flex-column shadow-4">
+    <h2 class="text-5xl">Welcome {{username}}</h2>
 
-    <div class="flex flex-wrap">
-      <p>Want to post something?</p>
-      <p-button class="" label="Add" (onClick)="button = !button"></p-button>
+    <div class="grid flex flex-wrap align-items-center justify-content-center">
+      <p class="col-8 text-4xl">Want to post something?</p>
+      <p-button class="col-4" label="Add" (onClick)="button = !button"></p-button>
     </div>
 
 
     <div *ngIf="button" class="grid flex flex-wrap align-items-center justify-content-center">
       <div class="col-6 flex align-items-center justify-content-center">
           <p-radioButton name="repository" value="Public" (onClick)="public = public" [(ngModel)]="public" inputId="public"></p-radioButton>
-          <label for="public" class="ml-2">Public</label>
+          <label for="public" class="ml-2  text-xl">Public</label>
       </div>
 
       <div class="col-6 flex align-items-center justify-content-center">
-          <p-radioButton name="repository" value="Private" (onClick)="public = !public" [(ngModel)]="!public" inputId="private"></p-radioButton>
-          <label for="private" class="ml-2">Private</label>
+          <p-radioButton class="text-xl" name="repository" value="Private" (onClick)="public = !public" [(ngModel)]="!public" inputId="private"></p-radioButton>
+          <label for="private" class="ml-2 text-xl">Private</label>
       </div>
 
-      <div class="flex flex-column grid ">
+      <div class="flex flex-column grid">
         <div class="col-12 flex flex-column align-items-center justify-content-center" *ngIf="public">
-          <input type="file" (change)="onSelectFile($event)">
-          <span>Every one will see a public post</span>
-          <p-button (onClick)="uploadPublic()" label="Let's post it!"></p-button>
+          <input type="file" label="Add" class="my-2 text-base" (change)="onSelectFile($event)">
+          <span class="my-2 text-xl">Every one will see a public post</span>
+          <p-button class="my-2" (onClick)="uploadPublic()" label="Let's post it!"></p-button>
         </div>
 
         <div class="col-12 flex flex-column align-items-center justify-content-center" *ngIf="!public">
-          <input type="file" (change)="onSelectFile($event)">
-          <span>Only the users will see a private post</span>
-          <p-button (onClick)="uploadPrivate()" label="Let's post it!"></p-button>
+          <input type="file" class="my-2 text-base" label="Add" (change)="onSelectFile($event)">
+          <span class="my-2 text-xl">Only the users will see a private post</span>
+          <p-button class="my-2" (onClick)="uploadPrivate()" label="Let's post it!"></p-button>
         </div>
       </div>
     </div>
 
 
     <div>
-      <div class="col-2"></div>
-      <div class="col-8">
 
-        <p-button label="Public or private" (onClick)="publicOrPrivate= !publicOrPrivate"></p-button>
 
-        <table *ngIf="publicOrPrivate">
-          <tr>
+
+        <div class="flex align-items-center justify-content-center mt-2">
+          <p-button class="" label="Public or private" (onClick)="publicOrPrivate= !publicOrPrivate"></p-button>
+        </div>
+
+        <table class="flex flex-column mt-4 shadow-2" *ngIf="publicOrPrivate">
+          <tr class="text-4xl flex justify-content-around shadow-1">
+            <th>Public files</th>
             <th>Name</th>
             <th>Type</th>
           </tr>
-          <tr *ngFor="let file of pubData.content">
+          <tr class="flex justify-content-around text-3xl" *ngFor="let file of pubData.content">
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1zm4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5z"/>
+            </svg></td>
             <td>{{ file.fileName }}</td>
             <td>{{ file.fileType }}</td>
           </tr>
         </table>
 
-        <table *ngIf="!publicOrPrivate">
-          <tr>
+        <table class="flex flex-column mt-4 shadow-2" *ngIf="!publicOrPrivate">
+          <tr class="text-4xl flex justify-content-around shadow-1">
+            <th>Private files</th>
             <th>Name</th>
             <th>Type</th>
           </tr>
-          <tr *ngFor="let file of prData.content">
+          <tr class="flex justify-content-around text-3xl" *ngFor="let file of prData.content">
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1zm4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5z"/>
+            </svg></td>
             <td>{{ file.fileName }}</td>
             <td>{{ file.fileType }}</td>
           </tr>
         </table>
 
 
-      </div>
-      <div class="col-2"></div>
-    </div>
+
+
+
 
 
 

@@ -19,19 +19,28 @@
 
   </nav>
 
-  <div class="mt-6 grid text-white bg-bluegray-300 h-screen w-screen">
+  <div class="mt-6 grid text-white bg-bluegray-600 h-screen w-screen">
 
     <div class="col-2"></div>
-    <div class="col-8 mt-6">
+    <div class="col-8 mt-6 shadow-4">
 
 
       <div class="mt-6" *ngIf="data">
-        <ul>
-          <li *ngFor="let file of data.content">
-            <p>Name: {{file.fileName}}</p>
-            <p>Type: {{file.fileType}}</p>
-          </li>
-        </ul>
+        <table class="flex flex-column mt-4 shadow-2">
+          <tr class="text-4xl flex justify-content-around mb-5 shadow-1">
+            <th>Public files</th>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+          <tr class="flex justify-content-around text-3xl mb-4" *ngFor="let file of data.content">
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1zm4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5z"/>
+            </svg></td>
+            <td>{{ file.fileName }}</td>
+            <td>{{ file.fileType }}</td>
+          </tr>
+        </table>
       </div>
 
 

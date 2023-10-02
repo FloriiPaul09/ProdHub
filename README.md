@@ -2,8 +2,7 @@
 
 <br>
 
-<p>Questo progetto è nato con l'idea di sviluppare un GitHub per i music producers, cioé il poter salvare i progetti sulla piattaforma, collaborare con altri users.
-</p>
+<p>Questo progetto è nato con l'idea di sviluppare un GitHub per i music producers, cioé il poter salvare i progetti sulla piattaforma e collaborare con altri users.</p>
 
 <br>
 

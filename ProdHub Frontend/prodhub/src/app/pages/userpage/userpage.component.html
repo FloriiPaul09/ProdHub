@@ -1,13 +1,28 @@
 <nav class="text-white fixed top-0 w-full shadow-5 bg-blue-900 grid flex-initial flex align-items-center justify-content-center">
-  <div class="col-12">
-    <p class="text-6xl customfont ml-4 mt-2 mb-2">ProdHub</p>
+  <div class="col-3">
+    <p class="text-6xl customfont ml-4 mt-3 mb-3">ProdHub</p>
   </div>
+  <div class="col-6">
+
+  </div>
+  <div class="col-3">
+    <div class="grid">
+      <div class="col-5">
+
+      </div>
+      <div class="col-1 "></div>
+      <div class="col-5 grid-nogutter">
+        <p-button label="Logout" styleClass="text-2xl text-white p-button-text" (onClick)="logout()"></p-button>
+      </div>
+    </div>
+  </div>
+
 </nav>
 
-<div class="mt-6 grid text-white bg-bluegray-600 h-screen w-screen">
+<div class="mt-6 grid text-white h-screen w-screen bg-bluegray-100">
 
   <div class="col-2"></div>
-  <div class="col-8 mt-4 flex flex-column shadow-4">
+  <div class="col-8 mt-6 bg-bluegray-300 shadow-8 border-2 border-solid border-black-alpha-90">
     <h2 class="text-5xl">Welcome {{username}}</h2>
 
     <div class="grid flex flex-wrap align-items-center justify-content-center">
@@ -47,17 +62,17 @@
 
 
 
-        <div class="flex align-items-center justify-content-center mt-2">
+        <div class="flex align-items-center justify-content-center mt-2" *ngIf="pubData.content && pubData.content.length>0 || prData.content && prData.content.length > 0">
           <p-button class="" label="Public or private" (onClick)="publicOrPrivate= !publicOrPrivate"></p-button>
         </div>
 
         <table class="flex flex-column mt-4 shadow-2" *ngIf="publicOrPrivate">
-          <tr class="text-4xl flex justify-content-around shadow-1">
+          <tr class="text-4xl flex justify-content-around mb-5 shadow-1">
             <th>Public files</th>
             <th>Name</th>
             <th>Type</th>
           </tr>
-          <tr class="flex justify-content-around text-3xl" *ngFor="let file of pubData.content">
+          <tr class="flex justify-content-around text-3xl mb-4" *ngFor="let file of pubData.content">
             <td><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
               <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1zm4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5z"/>
@@ -98,7 +113,7 @@
 
 
 
-<footer class="text-white fixed bottom-0 w-full bg-blue-900 shadow-5 grid flex align-items-center">
+<footer class="text-white fixed bottom-0 w-full bg-blue-900 shadow-5 flex align-items-center">
   <div class="col-2"></div>
 
 

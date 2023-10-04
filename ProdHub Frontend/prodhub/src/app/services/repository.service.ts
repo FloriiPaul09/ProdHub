@@ -33,18 +33,14 @@ export class RepositoryService {
 
   downloadPrivate(fileId: String): Observable<HttpEvent<Blob>>{
     return this.http.get(`${this.apiRepoPrivate}/download/${fileId}`,{
-      reportProgress: true,
       observe: 'events',
       responseType: 'blob'
     });
   }
 
-  downloadPublic(fileId: String): Observable<HttpEvent<Blob>>{
-    return this.http.get(`${this.apiRepoPublic}/download/${fileId}`,{
-      reportProgress: true,
-      observe: 'events',
-      responseType: 'blob'
-    });
+  downloadPublic(): Observable<string>{
+    const url = `${this.apiRepoPublic}/download`;
+    return this.http.get<string>(url);
   }
 
 

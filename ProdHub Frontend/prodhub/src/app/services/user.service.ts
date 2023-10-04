@@ -28,6 +28,7 @@ export class UserService {
 
     signUp(data : IRegisterData){
       return this.http.post(environment.apiSignUp, data);
+
     }
 
     login(data : ILoginData){

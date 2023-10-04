@@ -29,8 +29,9 @@ export class RegisterComponent implements OnInit {
   register(){
     this.userSrvc.signUp(this.f.value)
     .subscribe(accessData => {
-      this.router.navigate(['/login'])
+
     })
+    this.router.navigate(['/login'])
   }
 
 }

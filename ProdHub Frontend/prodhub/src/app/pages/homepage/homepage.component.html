@@ -1,6 +1,6 @@
   <nav class="text-white fixed top-0 w-full shadow-5 bg-blue-900 grid flex-initial flex align-items-center justify-content-center">
     <div class="col-3">
-      <p class="text-6xl customfont ml-4 mt-2 mb-2">ProdHub</p>
+      <p class="text-6xl customfont ml-4 mt-3 mb-3">ProdHub</p>
     </div>
     <div class="col-6">
 
@@ -19,14 +19,28 @@
 
   </nav>
 
-  <div class="mt-6 grid text-white bg-bluegray-600 h-screen w-screen">
+  <div class="mt-6 grid text-white h-screen w-screen bg-bluegray-100">
 
     <div class="col-2"></div>
-    <div class="col-8 mt-6 shadow-4">
+    <div class="col-8 mt-6 bg-bluegray-300 shadow-8 border-2 border-solid border-black-alpha-90">
 
 
-      <div class="mt-6" *ngIf="data">
-        <table class="flex flex-column mt-4 shadow-2">
+      <div class="text-center border-3 border-round-xl m-2">
+        <div class=" my-8">
+          <h2 class="customfont text-6xl pr-8">Welcome to ProdHub</h2>
+          <p class="customfont text-4xl pl-8">The GitHub of music producers</p>
+        </div>
+      </div>
+
+
+      <div class="ml-3 my-5" *ngIf="data.content && data.content.length == 0">
+        <p class="text-4xl">Oh no... purtroppo non ci sono file pubblici da mostrare...</p>
+      </div>
+
+
+      <div class="mt-6" *ngIf="data.content && data.content.length > 0">
+        <p class="ml-3 my-5 text-4xl">Ecco i file pubblici che sono stati pubblicati...</p>
+        <table class="flex flex-column mt-4  shadow-2" >
           <tr class="text-4xl flex justify-content-around mb-5 shadow-1">
             <th>Public files</th>
             <th>Name</th>

@@ -1,4 +1,5 @@
-import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
+import { IAccessData } from 'src/app/interfaces/iaccess-data';
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +11,7 @@ import { IPage } from 'src/app/interfaces/ipage';
 })
 export class UserpageComponent implements OnInit{
 
-  prData: IPage = {
+  protected prData: IPage = {
     content: [],
     empty: false,
     first: false,
@@ -24,7 +25,7 @@ export class UserpageComponent implements OnInit{
     totalPages: 0
   };
 
-  pubData: IPage = {
+  protected pubData: IPage = {
     content: [],
     empty: false,
     first: false,
@@ -44,6 +45,9 @@ export class UserpageComponent implements OnInit{
   button: boolean = false;
 
   username : string = '';
+
+  protected user: IAccessData | null = null;
+  protected isAdmin: boolean = false;
 
   fileId: string = '';
   selectedFile : File | null = null;
@@ -84,7 +88,9 @@ export class UserpageComponent implements OnInit{
   }
 
 
-
+  logout(){
+    this.userSrvc.logout();
+  }
 
   onSelectFile(event : any){
     this.selectedFile = event.target.files[0];
@@ -134,8 +140,36 @@ export class UserpageComponent implements OnInit{
 
   }
 
-  downloadPublic(fileId : string){}
+  // downloadPublic(){
+  //   this.repositorySrvc.downloadPublic(fileId).subscribe(
+  //     event => {
+  //       if (event instanceof HttpResponse) {
+  //         const blob = new Blob([event.body as Blob], {type: 'application/octet-stream' });
+  //         const url = window.URL.createObjectURL(blob);
+  //         window.open(url);
+  //       }
+  //     },
+  //     error => {
+  //       console.log('Download error: ', error)
+  //     }
+  //   )
+  // }
 
-  downloadPrivate(fileId : string){}
+  // downloadPrivate(){
+  //   this.repositorySrvc.downloadPrivate(fileId).subscribe(
+  //     event => {
+  //       if (event instanceof HttpResponse) {
+  //         const blob = new Blob([event.body as Blob], {type: 'application/octet-stream' });
+  //         const url = window.URL.createObjectURL(blob);
+  //         window.open(url);
+  //       }
+  //     },
+  //     error => {
+  //       console.log('Download error: ', error)
+  //     }
+  //   )
+
+
+  // }
 
 }

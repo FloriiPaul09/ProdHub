@@ -2,6 +2,10 @@
 
 <br>
 
+<p>Questo progetto è nato con l'idea di sviluppare un GitHub per i music producers, cioé il poter salvare i progetti sulla piattaforma e collaborare con altri users.</p>
+
+<br>
+
 <h2>Back-End: Java Springboot Maven</h2>
 
 <p>
